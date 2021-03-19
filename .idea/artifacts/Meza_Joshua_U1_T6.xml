@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Meza_Joshua_U1_T6">
+    <output-path>$PROJECT_DIR$/out/artifacts/Meza_Joshua_U1_T6</output-path>
+    <root id="archive" name="Meza_Joshua_U1_T6.jar" />
+  </artifact>
+</component>
