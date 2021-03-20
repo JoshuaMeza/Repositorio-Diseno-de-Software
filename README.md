@@ -11,4 +11,4 @@
 - **View**
     - [List](./src/com/company/view/List.java)
 - **Controller**
-    - [List](./src/com/company/controller/Controller.java)
+    - [Controller](./src/com/company/controller/Controller.java)
