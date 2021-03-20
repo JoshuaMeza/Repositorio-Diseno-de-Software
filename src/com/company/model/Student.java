@@ -26,7 +26,7 @@ public class Student {
         if ( grade != -1 ) {
             output = firstLastName + " " + secondLastName + " " + name + " (" + id + "): " + grade;
         } else {
-            output = firstLastName + " " + secondLastName + " " + name + " (" + id + "): ___";
+            output = firstLastName + " " + secondLastName + " " + name + " (" + id + "): _";
         }
 
         return output;

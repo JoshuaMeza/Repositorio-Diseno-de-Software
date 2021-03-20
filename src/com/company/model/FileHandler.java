@@ -18,8 +18,35 @@ public class FileHandler {
 
             while ( ( row = fl.readLine() ) != null ) {
                 String[] data = row.split(",");
-                String[] info = { data[0], data[1], data[2], data[3], data[4] };
-                output.add(info);
+                try {
+                    String[] info = { data[0], data[1], data[2], data[3], data[4] };
+                    output.add(info);
+                } catch (IndexOutOfBoundsException e) {}
+            }
+
+            fl.close();
+        } catch (FileNotFoundException e) {
+            output = new ArrayList<>();
+        } catch (IOException e) {
+            output = new ArrayList<>();
+        }
+
+        return output;
+    }
+
+    public ArrayList<String[]> readUsers() {
+        ArrayList<String[]> output = new ArrayList<>();
+
+        try {
+            BufferedReader fl = new BufferedReader(new FileReader(Paths.get("users.csv").toString()));
+            String row;
+
+            while ( ( row = fl.readLine() ) != null ) {
+                String[] data = row.split(",");
+                try {
+                    String[] info = { data[0], data[1] };
+                    output.add(info);
+                } catch (IndexOutOfBoundsException e) {}
             }
 
             fl.close();

@@ -7,8 +7,10 @@
 - **Model**
     - [Model](./src/com/company/model/Model.java)
     - [Student](./src/com/company/model/Student.java)
+    - [User](./src/com/company/model/User.java)
     - [FileHandler](./src/com/company/model/FileHandler.java)
 - **View**
     - [List](./src/com/company/view/List.java)
+    - [Login](./src/com/company/view/Login.java)
 - **Controller**
     - [Controller](./src/com/company/controller/Controller.java)
