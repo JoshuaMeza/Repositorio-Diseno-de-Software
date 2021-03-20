@@ -1,4 +1,4 @@
-package com.company.Model;
+package com.company.model;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ public class Model {
         }
     }
 
-    public String getStudents() {
+    public String printStudents() {
         String output = "";
 
         for ( Student student : students ) {

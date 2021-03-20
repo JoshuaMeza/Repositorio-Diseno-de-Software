@@ -1,7 +1,7 @@
-package com.company.Controller;
+package com.company.controller;
 
-import com.company.Model.Model;
-import com.company.View.List;
+import com.company.model.Model;
+import com.company.view.List;
 
 public class Controller {
     private List list;
@@ -14,6 +14,6 @@ public class Controller {
     }
 
     public void resetListOutput() {
-        list.setOutputBox( model.getStudents() );
+        list.setOutputBox( model.printStudents() );
     }
 }
