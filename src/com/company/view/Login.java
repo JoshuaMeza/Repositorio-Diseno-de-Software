@@ -3,7 +3,7 @@ package com.company.view;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class Login extends JFrame {
+public class Login extends JFrame implements GUI {
     private static final String INITIAL_VALUE = "";
     private JPanel background;
     private JTextField userBox;
@@ -26,6 +26,10 @@ public class Login extends JFrame {
         passwordBox.setText( INITIAL_VALUE );
     }
 
+    public void showError( String errMessage ) {
+        JOptionPane.showMessageDialog( this, errMessage );
+    }
+
     public String getUser() {
         return userBox.getText();
     }
@@ -39,10 +43,6 @@ public class Login extends JFrame {
         }
 
         return output;
-    }
-
-    public void showError( String errMessage ) {
-        JOptionPane.showMessageDialog( this, errMessage );
     }
 
     public void addContinueListener ( ActionListener acl ) {

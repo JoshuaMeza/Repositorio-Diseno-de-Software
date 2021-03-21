@@ -3,6 +3,7 @@ package com.company.model;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -57,5 +58,23 @@ public class FileHandler {
         }
 
         return output;
+    }
+
+    public boolean writeStudents( String file, ArrayList<String> data ) {
+        boolean success = true;
+
+        try {
+            FileWriter fw = new FileWriter( Paths.get( file ).toString() );
+
+            for ( String line : data ) {
+                fw.write( line + "\n" );
+            }
+
+            fw.close();
+        } catch ( IOException e ) {
+            success = false;
+        }
+
+        return success;
     }
 }

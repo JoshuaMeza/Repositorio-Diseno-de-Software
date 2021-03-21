@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.controller.SavingException;
+
 import java.util.ArrayList;
 
 public class Model {
@@ -54,5 +56,51 @@ public class Model {
         }
 
         return result;
+    }
+
+    public ArrayList<String> getIds() {
+        ArrayList<String> ids = new ArrayList<>();
+
+        for ( Student student : students ) {
+            ids.add( "" + student.getId() );
+        }
+
+        return ids;
+    }
+
+    public String searchGrade( int id ) {
+        String grade = "";
+
+        for ( Student student : students ) {
+            if ( student.getId() == id ) {
+                if ( Integer.valueOf( student.getGrade() ) != -1 ) {
+                    grade += student.getGrade();
+                }
+                break;
+            }
+        }
+
+        return grade;
+    }
+
+    public void setGrade( int id, int grade ) {
+        for ( Student student : students ) {
+            if ( student.getId() == id ) {
+                student.setGrade( grade );
+                break;
+            }
+        }
+    }
+
+    public void saveChanges() throws SavingException {
+        ArrayList<String> info = new ArrayList<>();
+
+        for ( Student student : students ) {
+            info.add( student.savingFormat() );
+        }
+
+        if ( ! new FileHandler().writeStudents( "students.csv" ,info ) ) {
+            throw new SavingException("No fue posible guardar los cambios.");
+        }
     }
 }
