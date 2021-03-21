@@ -92,6 +92,31 @@ public class Model {
         }
     }
 
+    public boolean verifyGrades() {
+        boolean status = true;
+
+        for ( Student student : students ) {
+            if ( Integer.valueOf( student.getGrade() ) == -1 ) {
+                status = false;
+                break;
+            }
+        }
+
+        return status;
+    }
+
+    public void generateFinalCSV() throws SavingException {
+        ArrayList<String> output = new ArrayList<>();
+
+        for ( Student student : students ) {
+            output.add( student.getId() + ",Diseño de Software," + student.getGrade() );
+        }
+
+        if ( ! new FileHandler().writeStudents( "calificaciones.csv", output ) ) {
+            throw new SavingException( "No fue posible generar el archivo." );
+        }
+    }
+
     public void saveChanges() throws SavingException {
         ArrayList<String> info = new ArrayList<>();
 

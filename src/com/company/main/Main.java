@@ -8,7 +8,7 @@ import com.company.view.Login;
 /**
  * U1_T6 - Entrega final de unidad
  * @author Joshua Immanuel Meza Magaña
- * @version 1.0.2
+ * @version 1.0.3
  * ─────▄───▄
  * ─▄█▄─█▀█▀█─▄█▄
  * ▀▀████▄█▄████▀▀
