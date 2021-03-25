@@ -18,18 +18,12 @@ public class Controller {
 
         list.updateSelectionEntries( model.getIds() );
         list.reset( model.printStudents() );
-        generateChecking();
 
         list.selectStudentListener( new StudentChangeListener() );
         list.updateGradesListener( new UpdateGradesListener() );
-        list.generateButtonListener( new GenerateButtonListener() );
         list.addWindowListener( new WindowClosingListener() );
 
         login.addContinueListener( new PasswordChecker() );
-    }
-
-    private void generateChecking() {
-        list.changeGenerateButtonAccess( model.verifyGrades() );
     }
 
     class PasswordChecker implements ActionListener {
@@ -75,24 +69,12 @@ public class Controller {
                 if ( grade >= 1 && grade <= 100 && grade % 1 == 0 ) {
                     model.setGrade( Integer.valueOf( list.getIdSelection() ), Integer.valueOf( list.getGradeBox() ) );
                     list.reset( model.printStudents() );
-                    generateChecking();
                 } else {
                     throw new NumberFormatException();
                 }
             } catch ( NumberFormatException exception ) {
                 list.showError( "Debes introducir un número entero entre el 1 y el 100." );
             } catch ( Exception exception ) {
-                list.showError( exception.toString() );
-            }
-        }
-    }
-
-    class GenerateButtonListener implements ActionListener {
-        @Override
-        public void actionPerformed( ActionEvent e ) {
-            try {
-                model.generateFinalCSV();
-            } catch ( SavingException exception ) {
                 list.showError( exception.toString() );
             }
         }

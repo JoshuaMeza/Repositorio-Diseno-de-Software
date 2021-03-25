@@ -14,13 +14,11 @@ public class List extends JFrame implements GUI {
     private JComboBox studentsSelection;
     private JLabel registerLabel;
     private JScrollPane pane;
-    private JLabel generateLabel;
-    private JButton generateButton;
 
     public List() {
         this.add(background);
         this.setTitle("Listado de alumnos");
-        this.setSize(500, 300);
+        this.setSize(500, 250);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -60,19 +58,11 @@ public class List extends JFrame implements GUI {
         registerButton.setEnabled( status );
     }
 
-    public void changeGenerateButtonAccess( boolean status ) {
-        generateButton.setEnabled( status );
-    }
-
     public void selectStudentListener( ItemListener sll ) {
         studentsSelection.addItemListener( sll );
     }
 
     public void updateGradesListener( ActionListener ugl ) {
         registerButton.addActionListener( ugl );
-    }
-
-    public void generateButtonListener( ActionListener gbl ) {
-        generateButton.addActionListener( gbl );
     }
 }

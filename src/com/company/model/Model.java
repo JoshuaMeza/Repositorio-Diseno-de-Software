@@ -16,19 +16,48 @@ public class Model {
     }
 
     public void read() {
-        ArrayList<String[]> info = new FileHandler().readStudents();
+        FileHandler fh = new FileHandler();
+        ArrayList<String[]> info = fh.readStudents();
 
+        // Generate Students
         for ( String[] row : info ) {
             try {
-                if ( row[4].equals("null") ) {
-                    students.add( new Student(Integer.valueOf(row[0]), row[1], row[2], row[3]) );
-                } else {
-                    students.add( new Student(Integer.valueOf(row[0]), row[1], row[2], row[3], Integer.valueOf(row[4])) );
-                }
-            } catch ( Exception e ) {}
+                students.add( new Student( Integer.valueOf(row[0]), row[1], row[2], row[3] ) );
+            } catch ( Exception e ) {
+                System.out.println(e.toString());
+            }
         }
 
-        info = new FileHandler().readUsers();
+        // Set grades
+        info = fh.readGrades();
+
+        if ( info.size() > 0 ) {
+            for ( Student student : students ) {
+                int i = 0;
+                boolean found = false;
+
+                try {
+                    for ( String[] row : info ) {
+                        if ( Integer.valueOf( row[0] ) == student.getId() ) {
+                            student.setGrade( Integer.valueOf( row[1] ) );
+                            found = true;
+                            break;
+                        }
+
+                        i++;
+                    }
+                } catch ( Exception e ) {
+                    break;
+                }
+
+                if ( found ) {
+                    info.remove( i );
+                }
+            }
+        }
+
+        // Generate Users
+        info = fh.readUsers();
 
         for ( String[] row : info ) {
             users.add( new User( row[0], row[1] ) );
@@ -92,40 +121,19 @@ public class Model {
         }
     }
 
-    public boolean verifyGrades() {
-        boolean status = true;
-
-        for ( Student student : students ) {
-            if ( Integer.valueOf( student.getGrade() ) == -1 ) {
-                status = false;
-                break;
-            }
-        }
-
-        return status;
-    }
-
-    public void generateFinalCSV() throws SavingException {
+    public void saveChanges() throws SavingException {
         ArrayList<String> output = new ArrayList<>();
 
         for ( Student student : students ) {
-            output.add( student.getId() + ",Diseño de Software," + student.getGrade() );
+            int grade = student.getGrade();
+
+            if ( grade != -1 ) {
+                output.add( student.getId() + ",Diseño de Software," + grade );
+            }
         }
 
-        if ( ! new FileHandler().writeStudents( "calificaciones.csv", output ) ) {
-            throw new SavingException( "No fue posible generar el archivo." );
-        }
-    }
-
-    public void saveChanges() throws SavingException {
-        ArrayList<String> info = new ArrayList<>();
-
-        for ( Student student : students ) {
-            info.add( student.savingFormat() );
-        }
-
-        if ( ! new FileHandler().writeStudents( "students.csv" ,info ) ) {
-            throw new SavingException("No fue posible guardar los cambios.");
+        if ( ! new FileHandler().writeFiles( "grades.csv", output ) ) {
+            throw new SavingException( "No fue posible realizar el guardado." );
         }
     }
 }
