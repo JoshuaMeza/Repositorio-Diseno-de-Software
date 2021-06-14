@@ -8,90 +8,28 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    public ArrayList<String[]> readStudents() {
+    public static ArrayList<String[]> read( String file ) {
         ArrayList<String[]> output = new ArrayList<>();
 
         try {
-            File csv = new File( "students.csv" );
-            BufferedReader fl = new BufferedReader(new FileReader( csv ));
+            File csv = new File( file );
+            BufferedReader fl = new BufferedReader( new FileReader( csv ) );
             String row;
 
             while ( ( row = fl.readLine() ) != null ) {
-                String[] data = row.split(",");
-                try {
-                    String[] info = { data[0], data[1], data[2], data[3] };
-                    output.add(info);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println( "Missing parameters on student!" );
-                }
-            }
-
-            fl.close();
-        } catch (Exception e) {
-            output = new ArrayList<>();
-            System.out.println("students.csv not found");
-        }
-
-        return output;
-    }
-
-    public ArrayList<String[]> readGrades() {
-        ArrayList<String[]> output = new ArrayList<>();
-
-        try {
-            File csv = new File( "grades.csv" );
-            BufferedReader fl = new BufferedReader(new FileReader( csv ));
-            String row;
-
-            while ( ( row = fl.readLine() ) != null ) {
-                String[] data = row.split(",");
-                try {
-                    String[] info = { data[0], data[2] };
-                    output.add(info);
-                } catch ( IndexOutOfBoundsException e ) {
-                    System.out.println( "Missing parameters on student!" );
-                }
-
+                output.add( row.split( "," ) );
             }
 
             fl.close();
         } catch ( Exception e ) {
             output = new ArrayList<>();
-            System.out.println( "grades.csv not found" );
+            System.out.println("File not found");
         }
 
         return output;
     }
 
-    public ArrayList<String[]> readUsers() {
-        ArrayList<String[]> output = new ArrayList<>();
-
-        try {
-            File csv = new File( "users.csv" );
-            BufferedReader fl = new BufferedReader(new FileReader( csv ));
-            String row;
-
-            while ( ( row = fl.readLine() ) != null ) {
-                String[] data = row.split(",");
-                try {
-                    String[] info = { data[0], data[1] };
-                    output.add(info);
-                } catch ( Exception e ) {
-                    System.out.println( "Missing parameters on user!" );
-                }
-
-            }
-
-            fl.close();
-        } catch (Exception e) {
-            output = new ArrayList<>();
-            System.out.println( "students.csv not found" );
-        }
-
-        return output;
-    }
-
-    public boolean writeFiles( String file, ArrayList<String> data ) {
+    public static boolean write( String file, ArrayList<String> data ) {
         boolean success = true;
 
         try {

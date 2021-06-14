@@ -16,8 +16,7 @@ public class Model {
     }
 
     public void read() {
-        FileHandler fh = new FileHandler();
-        ArrayList<String[]> info = fh.readStudents();
+        ArrayList<String[]> info = FileHandler.read( "students.csv" );
 
         // Generate Students
         for ( String[] row : info ) {
@@ -29,7 +28,7 @@ public class Model {
         }
 
         // Set grades
-        info = fh.readGrades();
+        info = FileHandler.read( "grades.csv" );
 
         if ( info.size() > 0 ) {
             for ( Student student : students ) {
@@ -57,7 +56,7 @@ public class Model {
         }
 
         // Generate Users
-        info = fh.readUsers();
+        info = FileHandler.read( "users.csv" );
 
         for ( String[] row : info ) {
             users.add( new User( row[0], row[1] ) );
@@ -71,7 +70,7 @@ public class Model {
             output += student.toString() + "\n";
         }
 
-        return output;
+        return output.substring( 0, output.length()-1 );
     }
 
     public boolean verifyLogin( String username, String password ) {
@@ -132,7 +131,7 @@ public class Model {
             }
         }
 
-        if ( ! new FileHandler().writeFiles( "grades.csv", output ) ) {
+        if ( ! FileHandler.write( "grades.csv", output ) ) {
             throw new SavingException( "No fue posible realizar el guardado." );
         }
     }
