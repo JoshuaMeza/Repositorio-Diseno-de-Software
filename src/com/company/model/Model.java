@@ -12,51 +12,47 @@ public class Model {
         this.students = new ArrayList<>();
         this.users = new ArrayList<>();
 
-        read();
+        updateArraysFromFiles();
     }
 
-    public void read() {
+    public void updateArraysFromFiles() {
+        generateStudents();
+        addGrades();
+        generateUsers();
+    }
+
+    private void generateStudents() {
         ArrayList<String[]> info = FileHandler.read( "students.csv" );
 
-        // Generate Students
         for ( String[] row : info ) {
             try {
-                students.add( new Student( Integer.valueOf(row[0]), row[1], row[2], row[3] ) );
+                students.add( new Student( Integer.parseInt( row[0] ), row[1], row[2], row[3] ) );
             } catch ( Exception e ) {
-                System.out.println(e.toString());
+                System.out.println( e.toString() );
             }
         }
+    }
 
-        // Set grades
-        info = FileHandler.read( "grades.csv" );
+    private void addGrades() {
+        ArrayList<String[]> info = FileHandler.read( "grades.csv" );
 
-        if ( info.size() > 0 ) {
-            for ( Student student : students ) {
-                int i = 0;
-                boolean found = false;
-
-                try {
-                    for ( String[] row : info ) {
-                        if ( Integer.valueOf( row[0] ) == student.getId() ) {
-                            student.setGrade( Integer.valueOf( row[1] ) );
-                            found = true;
-                            break;
-                        }
-
-                        i++;
+        for ( String[] row : info ) {
+            try {
+                int id = Integer.parseInt( row[0] ), grade = Integer.parseInt( row[1] );
+                for ( Student student : students ) {
+                    if ( id == student.getId() ) {
+                        student.setGrade( grade );
+                        break;
                     }
-                } catch ( Exception e ) {
-                    break;
                 }
-
-                if ( found ) {
-                    info.remove( i );
-                }
+            } catch ( Exception e ) {
+                System.out.println( e.toString() );
             }
         }
+    }
 
-        // Generate Users
-        info = FileHandler.read( "users.csv" );
+    private void generateUsers() {
+        ArrayList<String[]> info = FileHandler.read( "users.csv" );
 
         for ( String[] row : info ) {
             users.add( new User( row[0], row[1] ) );
@@ -101,7 +97,7 @@ public class Model {
 
         for ( Student student : students ) {
             if ( student.getId() == id ) {
-                if ( Integer.valueOf( student.getGrade() ) != -1 ) {
+                if ( student.getGrade() != -1 ) {
                     grade += student.getGrade();
                 }
                 break;
@@ -120,7 +116,7 @@ public class Model {
         }
     }
 
-    public void saveChanges() throws SavingException {
+    private ArrayList<String> generateOutput() {
         ArrayList<String> output = new ArrayList<>();
 
         for ( Student student : students ) {
@@ -130,6 +126,12 @@ public class Model {
                 output.add( student.getId() + ",Diseño de Software," + grade );
             }
         }
+
+        return output;
+    }
+
+    public void saveChanges() throws SavingException {
+        ArrayList<String> output = generateOutput();
 
         if ( ! FileHandler.write( "grades.csv", output ) ) {
             throw new SavingException( "No fue posible realizar el guardado." );
