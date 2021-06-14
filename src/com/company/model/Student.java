@@ -1,6 +1,6 @@
 package com.company.model;
 
-public class Student {
+public class Student implements OutputSubjectFile {
     private int id;
     private String firstLastName;
     private String secondLastName;
@@ -31,16 +31,9 @@ public class Student {
         this.grade = grade;
     }
 
-    public String savingFormat() {
-        String output = id + "," + firstLastName + "," + secondLastName + "," + name;
-
-        if ( grade != -1 ) {
-            output += "," + grade;
-        } else {
-            output += ",null";
-        }
-
-        return output;
+    @Override
+    public String produceOutput(String subject) {
+        return getGrade() != -1 ? getId() + "," + subject + "," + getGrade() : null ;
     }
 
     @Override

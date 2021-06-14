@@ -38,7 +38,7 @@ public class Model {
 
         for ( String[] row : info ) {
             try {
-                int id = Integer.parseInt( row[0] ), grade = Integer.parseInt( row[1] );
+                int id = Integer.parseInt( row[0] ), grade = Integer.parseInt( row[2] );
                 for ( Student student : students ) {
                     if ( id == student.getId() ) {
                         student.setGrade( grade );
@@ -116,14 +116,18 @@ public class Model {
         }
     }
 
-    private ArrayList<String> generateOutput() {
+    private ArrayList<String> generateOutput( String subject, ArrayList arr ) {
         ArrayList<String> output = new ArrayList<>();
 
-        for ( Student student : students ) {
-            int grade = student.getGrade();
-
-            if ( grade != -1 ) {
-                output.add( student.getId() + ",Diseño de Software," + grade );
+        for ( Object o : arr ) {
+            if ( o instanceof OutputSubjectFile ) {
+                OutputSubjectFile item = (OutputSubjectFile) o;
+                String temp = item.produceOutput( subject );
+                if ( temp != null ) {
+                    output.add( temp );
+                }
+            } else {
+                break;
             }
         }
 
@@ -131,7 +135,7 @@ public class Model {
     }
 
     public void saveChanges() throws SavingException {
-        ArrayList<String> output = generateOutput();
+        ArrayList<String> output = generateOutput( "Diseno de Software", students );
 
         if ( ! FileHandler.write( "grades.csv", output ) ) {
             throw new SavingException( "No fue posible realizar el guardado." );
