@@ -6,9 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class FileHandler {
+public class FileHandler implements ReadOnly, WriteOnly {
 
-    public static ArrayList<String[]> read( String file ) {
+    public ArrayList<String[]> read( String file ) {
         ArrayList<String[]> output = new ArrayList<>();
 
         try {
@@ -29,7 +29,7 @@ public class FileHandler {
         return output;
     }
 
-    public static boolean write( String file, ArrayList<String> data ) {
+    public boolean write( String file, ArrayList<String> data ) {
         boolean success = true;
 
         try {

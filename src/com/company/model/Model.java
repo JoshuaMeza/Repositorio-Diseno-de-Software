@@ -22,7 +22,8 @@ public class Model {
     }
 
     private void generateStudents() {
-        ArrayList<String[]> info = FileHandler.read( "students.csv" );
+        ReadOnly fh = new FileHandler();
+        ArrayList<String[]> info = fh.read( "students.csv" );
 
         for ( String[] row : info ) {
             try {
@@ -34,7 +35,8 @@ public class Model {
     }
 
     private void addGrades() {
-        ArrayList<String[]> info = FileHandler.read( "grades.csv" );
+        ReadOnly fh = new FileHandler();
+        ArrayList<String[]> info = fh.read( "grades.csv" );
 
         for ( String[] row : info ) {
             try {
@@ -52,7 +54,8 @@ public class Model {
     }
 
     private void generateUsers() {
-        ArrayList<String[]> info = FileHandler.read( "users.csv" );
+        ReadOnly fh = new FileHandler();
+        ArrayList<String[]> info = fh.read( "users.csv" );
 
         for ( String[] row : info ) {
             users.add( new User( row[0], row[1] ) );
@@ -135,9 +138,10 @@ public class Model {
     }
 
     public void saveChanges() throws SavingException {
+        WriteOnly fh = new FileHandler();
         ArrayList<String> output = generateOutput( "Diseno de Software", students );
 
-        if ( ! FileHandler.write( "grades.csv", output ) ) {
+        if ( ! fh.write( "grades.csv", output ) ) {
             throw new SavingException( "No fue posible realizar el guardado." );
         }
     }
