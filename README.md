@@ -39,6 +39,12 @@
 - [PartiallyGraded](./src/main/java/controller/PartiallyGraded.java)
 - [Graded](./src/main/java/controller/Graded.java)
 
-## Nota
+## Notas
 
-Desarrollado con Java SE 14
+- Desarrollado con Java SE 14
+- Emplea las librería [Apache POI](https://poi.apache.org/download.html) `v5.0.0` para manejar los archivos Excel.
+
+# Descargar JAR
+
+[Clic aquí.](#)
+
