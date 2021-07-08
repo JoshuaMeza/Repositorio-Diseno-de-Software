@@ -44,7 +44,7 @@
 - Desarrollado con Java SE 14
 - Emplea la librería [Apache POI](https://poi.apache.org/download.html) `v5.0.0` para manejar los archivos Excel.
 
-# Descargar JAR
+## Descargar JAR
 
 [Clic aquí.](https://github.com/JoshuaMeza/Repositorio-Diseno-de-Software/blob/project/.github/students.zip?raw=true)
 
