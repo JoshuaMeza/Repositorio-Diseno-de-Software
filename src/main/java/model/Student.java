@@ -31,18 +31,6 @@ public class Student {
         this.grade = grade;
     }
 
-    public String savingFormat() {
-        String output = id + "," + firstLastName + "," + secondLastName + "," + name;
-
-        if ( grade != -1 ) {
-            output += "," + grade;
-        } else {
-            output += ",null";
-        }
-
-        return output;
-    }
-
     @Override
     public String toString() {
         String output;
